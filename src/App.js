@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Button } from './components/Button'
+import { Table } from './components/Table'
 
 function App() {
+  const [showTable, setShowTable] = useState(true)
+  const [isActive, setActive] = useState(true)
+
+  const toggleClass = () => {
+    setActive(!isActive)
+  }
+
+  const handleCloginClick = () => {
+    if (!isActive) {
+      toggleClass()
+    }
+    setShowTable(true)
+  }
+
+  const handleVloginClick = () => {
+    if (isActive) {
+      toggleClass()
+    }
+    setShowTable(false)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='buttons'>
+      <Button
+        id='cloginbtn'
+        text='CLIENT LOGIN'
+        onClick={handleCloginClick}
+        className={isActive ? 'switchBtn selectedBtn' : 'switchBtn'}
+      />
+      <Button
+        id='vloginbtn'
+        text='VENDOR LOGIN'
+        onClick={handleVloginClick}
+        className={isActive ? 'switchBtn' : 'switchBtn selectedBtn'}
+      />
+      {showTable ? <Table /> : null}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
